@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entreprise</title>
+    
+    <!-- CSS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700;900&display=swap" >
+    <link rel="stylesheet" href="./assets/css/all.min.css">
+    <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+<body>
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white">
+                        <h2 class="text-center mb-0">À propos de l'application</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <h3>Informations étudiant</h3>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item"><strong>Numéro étudiant :</strong> 1</li>
+                                    <li class="list-group-item"><strong>Nom :</strong> TALON</li>
+                                    <li class="list-group-item"><strong>Prénom :</strong> Morel</li>
+                                    <li class="list-group-item"><strong>Groupe de TP :</strong> 1</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h3>Contexte du projet</h3>
+                                <p>Cette application de gestion d'entreprises a été développée dans le cadre du module de programmation web avancée.</p>
+                                <p>Elle utilise une architecture MVC avec PHP objet et une base de données MySQL.</p>
+                            </div>
+                        </div>
+
+                        <h3 class="mb-3">Fonctionnalités implémentées</h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4>Gestion des entreprises</h4>
+                                <ul class="feature-list">
+                                    <li>Affichage de la liste complète des entreprises</li>
+                                    <li>Pagination des résultats (10 éléments par page)</li>
+                                    <li>Système de tri multi-critères (ID, Nom, Description, etc.)</li>
+                                    <li>Recherche globale dans toutes les données</li>
+                                    <li>Visualisation détaillée d'une entreprise</li>
+                                    <li>Ajout de nouvelles entreprises</li>
+                                    <li>Modification des informations existantes</li>
+                                    <li>Suppression d'entreprises avec confirmation</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h4>Fonctionnalités techniques</h4>
+                                <ul class="feature-list">
+                                    <li>Architecture MVC bien structurée</li>
+                                    <li>Programmation orientée objet en PHP</li>
+                                    <li>Validation des formulaires côté serveur</li>
+                                    <li>Gestion des erreurs et messages utilisateur</li>
+                                    <li>Système de génération de données fictives</li>
+                                    <li>Interface responsive avec Bootstrap 5</li>
+                                    <li>Connexion sécurisée à la base de données</li>
+                                    <li>Upload et gestion des logos d'entreprises</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <h3 class="mt-4 mb-3">Technologies utilisées</h3>
+                        <div class="d-flex flex-wrap gap-2">
+                            <span class="badge bg-primary">PHP 8+</span>
+                            <span class="badge bg-secondary">MySQL</span>
+                            <span class="badge bg-success">Bootstrap 5</span>
+                            <span class="badge bg-danger">HTML5</span>
+                            <span class="badge bg-warning text-dark">CSS3</span>
+                            <span class="badge bg-info text-dark">JavaScript</span>
+                            <span class="badge bg-dark">jQuery</span>
+                            <span class="badge bg-purple">DataTables</span>
+                        </div>
+
+                        <div class="alert alert-info mt-4">
+                            <h4><i class="fas fa-info-circle"></i> Remarques importantes</h4>
+                            <ul>
+                                <li>L'application a été testée sur Apache avec PHP 8.1</li>
+                                <li>La base de données doit être configurée dans le fichier donnees.php</li>
+                                <li>Toutes les actions sensibles (suppression, modification) sont confirmées</li>
+                                <li>Le code source est commenté pour faciliter la maintenance</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a href="index.php" class="btn btn-primary">
+                            <i class="fas fa-arrow-left"></i> Retour à l'application
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="./assets/js/jquery.min.js"></script>
+    <script src="./assets/js/bootstrap.bundle.min.js"></script>
+    <script src="./assets/js/jquery.dataTables.min.js"></script>
+    <script src="./assets/js/dataTables.bootstrap4.min.js"></script>
+    <script src="./assets/js/datatables-demo.js"></script>
+</body>
+</html>
