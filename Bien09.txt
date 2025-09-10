@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Drag & Drop Canvas avec jQuery</title>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<style>
+  body { font-family:sans-serif; margin:0; }
+  main { padding:20px; background:#f4f4f4; }
+  footer { display:flex; gap:20px; padding:20px; background:#ddd; }
+  .zone { width:300px; height:200px; border:2px dashed blue; position:relative; }
+  canvas { width:50px; height:50px; background:orange; position:absolute; cursor:grab; }
+  .coords { background:white; padding:10px; border:1px solid #aaa; }
+</style>
+</head>
+<body>
+
+<main>
+  <h1>Drag & Drop Canvas avec jQuery</h1>
+  <p>Déplace le carré orange dans la zone bleue.</p>
+</main>
+
+<footer>
+  <div class="zone">
+    <canvas id="box"></canvas>
+  </div>
+  <div class="coords">
+    X: <span id="x">0</span><br>
+    Y: <span id="y">0</span>
+  </div>
+</footer>
+
+<script>
+$(function(){
+  let dragging = false;
+
+  $('#box').on('mousedown', function() { dragging = true; });
+  $(document).on('mouseup', function() { dragging = false; });
+
+  $(document).on('mousemove', function(e){
+    if(!dragging) return;
+
+    const $zone = $('.zone');
+    const $box = $('#box');
+
+    // calcul position relative à la zone
+    let x = e.pageX - $zone.offset().left - $box.width()/2;
+    let y = e.pageY - $zone.offset().top - $box.height()/2;
+
+    // limiter dans la zone
+    x = Math.max(0, Math.min(x, $zone.width() - $box.width()));
+    y = Math.max(0, Math.min(y, $zone.height() - $box.height()));
+
+    $box.css({ left: x, top: y });
+
+    $('#x').text(Math.round(x));
+    $('#y').text(Math.round(y));
+  });
+});
+</script>
+
+</body>
+</html>
