@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercice 13 - Suppression des paragraphes spécifiques</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="removed.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        
+        p {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        
+        .test {
+            background-color: #ffe6b3;
+            border-left: 4px solid #ff9900;
+        }
+        
+        .platypus {
+            background-color: #e6f7ff;
+            border-left: 4px solid #0099ff;
+        }
+        
+        .normal {
+            background-color: #f0f0f0;
+            border-left: 4px solid #ccc;
+        }
+        
+        .both {
+            background-color: #e6ffe6;
+            border-left: 4px solid #00cc66;
+        }
+        
+        button {
+            padding: 10px 15px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 20px 0;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h1>Exercice 13 - Suppression des paragraphes spécifiques</h1>
+    
+    <div>
+        <button id="removeButton">Supprimer les paragraphes avec classes 'test' et 'platypus'</button>
+        
+        <p class="test">Ce paragraphe a la classe "test" et sera supprimé.</p>
+        <p class="platypus">Ce paragraphe a la classe "platypus" et sera supprimé.</p>
+        <p class="normal">Ce paragraphe est normal et ne sera PAS supprimé.</p>
+        <p class="test platypus">Ce paragraphe a les deux classes et sera supprimé.</p>
+        <p class="platypus">Un autre paragraphe avec classe "platypus" qui sera supprimé.</p>
+        <p class="normal">Un autre paragraphe normal qui ne sera PAS supprimé.</p>
+        <p class="test">Encore un paragraphe avec classe "test" qui sera supprimé.</p>
+    </div>
+</body>
+</html>
+
+// Fonction pour supprimer les paragraphes avec les classes "test" ou "platypus"
+function removeTestAndPlatypusParagraphs() {
+    // Sélectionner et supprimer en une seule fonction
+    $("p.test, p.platypus").remove();
+}
+
+// Configurer l'événement click sur le bouton
+function setupButtonClick() {
+    $("#removeButton").click(removeTestAndPlatypusParagraphs);
+}
+
+// Exécuter la configuration lorsque le document est prêt
+$(document).ready(function() {
+    setupButtonClick();
+});
