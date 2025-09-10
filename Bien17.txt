@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercice 17 - Classe Glop</title>
+    <script src="main.js" defer></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        
+        p {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+            border-left: 4px solid #ddd;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .color-input {
+            margin: 20px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 100px;
+        }
+        
+        button {
+            padding: 10px 15px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        
+        .info {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #eaf2f8;
+            border-radius: 5px;
+            border-left: 4px solid #3498db;
+        }
+    </style>
+</head>
+<body>
+    <h1>Exercice 17 - Classe Glop</h1>
+    
+    <div>
+        <label for="colorInput">Couleur hexadécimale pour Glop:</label>
+        <input type="text" id="colorInput" class="color-input" value="#ff5733" placeholder="#RRGGBB">
+        <button onclick="createGlop()">Créer un Glop</button>
+        <button onclick="deleteGlop()">Supprimer le Glop</button>
+        
+        <p>Cliquez sur ce paragraphe pour changer sa couleur</p>
+        <p>Un autre paragraphe cliquable</p>
+        <p>Encore un paragraphe à essayer</p>
+        
+        <div class="info">
+            <h3>Instructions:</h3>
+            <ul>
+                <li>Entrez une couleur hexadécimale</li>
+                <li>Cliquez sur "Créer un Glop" pour instancier la classe</li>
+                <li>Cliquez sur "Supprimer le Glop" pour le détruire</li>
+                <li>Cliquez sur un paragraphe pour changer sa couleur</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
+
+
+class Glop {
+    constructor(hexColor = '#ffc0cb') {
+        this.color = this.validateHexColor(hexColor) ? hexColor : '#ffc0cb';
+        console.log('Bwello');
+    }
+    
+    // Destructeur (simulé)
+    destroy() {
+        console.log('Boodnight');
+        // En JavaScript, on ne peut pas vraiment implémenter un destructeur
+        // comme en C++, donc on simule avec une méthode
+    }
+    
+    // Valider la couleur hexadécimale
+    validateHexColor(hexColor) {
+        const hexRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
+        return hexRegex.test(hexColor);
+    }
+    
+    // Getter pour la couleur
+    getColor() {
+        return this.color;
+    }
+}
+
+let currentGlop = null;
+
+// Fonction pour créer un Glop
+function createGlop() {
+    const colorInput = document.getElementById('colorInput');
+    const hexColor = colorInput.value.trim();
+    
+    if (currentGlop) {
+        console.log('Un Glop existe déjà. Supprimez-le d\'abord.');
+        return;
+    }
+    
+    currentGlop = new Glop(hexColor);
+    console.log(`Glop créé avec la couleur: ${currentGlop.getColor()}`);
+    
+    // Activer les événements sur les paragraphes
+    setupParagraphEvents();
+}
+
+// Fonction pour supprimer le Glop
+function deleteGlop() {
+    if (currentGlop) {
+        currentGlop.destroy();
+        currentGlop = null;
+        console.log('Glop supprimé');
+        
+        // Désactiver les événements sur les paragraphes
+        removeParagraphEvents();
+    } else {
+        console.log('Aucun Glop à supprimer');
+    }
+}
+
+// Configurer les événements sur les paragraphes
+function setupParagraphEvents() {
+    const paragraphs = document.querySelectorAll('p');
+    paragraphs.forEach(p => {
+        p.addEventListener('click', changeParagraphColor);
+    });
+}
+
+// Supprimer les événements des paragraphes
+function removeParagraphEvents() {
+    const paragraphs = document.querySelectorAll('p');
+    paragraphs.forEach(p => {
+        p.removeEventListener('click', changeParagraphColor);
+    });
+}
+
+// Changer la couleur du paragraphe cliqué
+function changeParagraphColor(event) {
+    if (currentGlop) {
+        event.target.style.color = currentGlop.getColor();
+    }
+}
+
+// Désactiver les événements au départ
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('Page chargée. Créez un Glop pour activer les fonctionnalités.');
+});
