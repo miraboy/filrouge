@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercice 14 - Gestion des classes</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="main.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        
+        p {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+            border-left: 4px solid #ddd;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .blue {
+            background-color: #e6f7ff !important;
+            border-left-color: #3498db !important;
+        }
+        
+        .highlighted {
+            background-color: #fff3cd !important;
+            border-left-color: #ffc107 !important;
+            font-weight: bold;
+        }
+        
+        .explanation {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            border-left: 4px solid #28a745;
+        }
+    </style>
+</head>
+<body>
+    <h1>Exercice 14 - Gestion des classes</h1>
+    
+    <div>
+        <p>Paragraphe 1 - Survolez-moi pour bleuir, cliquez pour highlight</p>
+        <p>Paragraphe 2 - Survolez-moi pour bleuir, cliquez pour highlight</p>
+        <p>Paragraphe 3 - Survolez-moi pour bleuir, cliquez pour highlight</p>
+        <p>Paragraphe 4 - Survolez-moi pour bleuir, cliquez pour highlight</p>
+    </div>
+    
+    <div class="explanation">
+        <h3>Instructions:</h3>
+        <ul>
+            <li>Survolez un paragraphe pour lui ajouter la classe "blue"</li>
+            <li>Cliquez sur un paragraphe pour ajouter/retirer la classe "highlighted"</li>
+        </ul>
+    </div>
+</body>
+</html>
+
+// Fonction pour configurer les événements sur les paragraphes
+function setupParagraphEvents() {
+    // Survol: ajouter la classe "blue"
+    $("p").hover(
+        function() {
+            // Mouse enter - ajouter la classe blue
+            $(this).addClass("blue");
+        },
+        function() {
+            // Mouse leave - retirer la classe blue
+            $(this).removeClass("blue");
+        }
+    );
+    
+    // Clic: basculer la classe "highlighted"
+    $("p").click(function() {
+        $(this).toggleClass("highlighted");
+    });
+}
+
+// Exécuter la configuration lorsque le document est prêt
+$(document).ready(function() {
+    setupParagraphEvents();
+});
