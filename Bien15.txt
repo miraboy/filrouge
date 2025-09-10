@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercice 15 - Fonction fléchée ES6</title>
+    <script src="main.js" defer></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        
+        .platypus {
+            padding: 20px;
+            margin: 15px 0;
+            border: 2px solid #3498db;
+            border-radius: 8px;
+            background-color: #eaf2f8;
+        }
+        
+        .other {
+            padding: 15px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Exercice 15 - Fonction fléchée ES6</h1>
+    
+    <div>
+        <div class="other">Élément sans classe platypus</div>
+        
+        <div class="platypus">Premier élément avec classe platypus (aura un fond bleu)</div>
+        
+        <div class="platypus">Deuxième élément avec classe platypus</div>
+        
+        <div class="other">Autre élément sans classe platypus</div>
+        
+        <div class="platypus">Troisième élément avec classe platypus</div>
+    </div>
+</body>
+</html>
+
+// Fonction fléchée ES6 pour styliser le premier élément avec la classe "platypus"
+const stylePlatypus = () => {
+    // Sélectionner le premier élément avec la classe "platypus"
+    const platypusElement = document.querySelector('.platypus');
+    
+    // Vérifier si l'élément existe
+    if (platypusElement) {
+        // Appliquer un fond bleu
+        platypusElement.style.backgroundColor = 'blue';
+        platypusElement.style.color = 'white';
+    }
+};
+
+// Exécuter la fonction lorsque le DOM est chargé
+document.addEventListener('DOMContentLoaded', stylePlatypus);
