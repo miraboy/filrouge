@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Morpion - Bootstrap & jQuery</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body class="bg-light">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white text-center py-3">
+                        <h1 class="mb-0">🎮 Jeu de Morpion</h1>
+                        <p class="mb-0">Bootstrap & jQuery</p>
+                    </div>
+                    
+                    <div class="card-body">
+                        <!-- Contrôles de jeu -->
+                        <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+                            <div class="btn-group" role="group">
+                                <button id="twoPlayers" class="btn btn-primary">
+                                    👥 2 Joueurs
+                                </button>
+                                <button id="vsAI" class="btn btn-outline-secondary">
+                                    🤖 VS IA
+                                </button>
+                            </div>
+                            
+                            <button id="restart" class="btn btn-warning">
+                                🔄 Nouvelle Partie
+                            </button>
+                        </div>
+                        
+                        <!-- Statut du jeu -->
+                        <div class="alert alert-info text-center mb-4">
+                            <h4 class="alert-heading mb-2" id="status">Tour du joueur X</h4>
+                            <p class="mb-0" id="subStatus">Cliquez sur une case pour commencer</p>
+                        </div>
+                        
+                        <!-- Grille de jeu -->
+                        <div class="container-fluid mb-4 px-0">
+                            <div class="row g-2 mx-0">
+                                <div class="col-4 px-1">
+                                    <div class="cell border rounded bg-white d-flex justify-content-center align-items-center" data-index="0" style="height: 100px; font-size: 2.5rem; cursor: pointer;"></div>
+                                </div>
+                                <div class="col-4 px-1">
+                                    <div class="cell border rounded bg-white d-flex justify-content-center align-items-center" data-index="1" style="height: 100px; font-size: 2.5rem; cursor: pointer;"></div>
+                                </div>
+                                <div class="col-4 px-1">
+                                    <div class="cell border rounded bg-white d-flex justify-content-center align-items-center" data-index="2" style="height: 100px; font-size: 2.5rem; cursor: pointer;"></div>
+                                </div>
+                                
+                                <div class="col-4 px-1">
+                                    <div class="cell border rounded bg-white d-flex justify-content-center align-items-center" data-index="3" style="height: 100px; font-size: 2.5rem; cursor: pointer;"></div>
+                                </div>
+                                <div class="col-4 px-1">
+                                    <div class="cell border rounded bg-white d-flex justify-content-center align-items-center" data-index="4" style="height: 100px; font-size: 2.5rem; cursor: pointer;"></div>
+                                </div>
+                                <div class="col-4 px-1">
+                                    <div class="cell border rounded bg-white d-flex justify-content-center align-items-center" data-index="5" style="height: 100px; font-size: 2.5rem; cursor: pointer;"></div>
+                                </div>
+                                
+                                <div class="col-4 px-1">
+                                    <div class="cell border rounded bg-white d-flex justify-content-center align-items-center" data-index="6" style="height: 100px; font-size: 2.5rem; cursor: pointer;"></div>
+                                </div>
+                                <div class="col-4 px-1">
+                                    <div class="cell border rounded bg-white d-flex justify-content-center align-items-center" data-index="7" style="height: 100px; font-size: 2.5rem; cursor: pointer;"></div>
+                                </div>
+                                <div class="col-4 px-1">
+                                    <div class="cell border rounded bg-white d-flex justify-content-center align-items-center" data-index="8" style="height: 100px; font-size: 2.5rem; cursor: pointer;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Scores -->
+                        <div class="row text-center mb-3">
+                            <div class="col-6 mb-3">
+                                <div class="card h-100" id="playerXCard">
+                                    <div class="card-body py-3">
+                                        <h5 class="card-title">Joueur X</h5>
+                                        <h2 class="card-text text-danger mb-0" id="scoreX">0</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <div class="card h-100" id="playerOCard">
+                                    <div class="card-body py-3">
+                                        <h5 class="card-title">Joueur O</h5>
+                                        <h2 class="card-text text-primary mb-0" id="scoreO">0</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-footer text-center text-muted">
+                        Développé avec Bootstrap 5 et jQuery
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- jQuery Code -->
+    <script>
+        $(document).ready(function() {
+            // État du jeu
+            const gameState = {
+                board: ['', '', '', '', '', '', '', '', ''],
+                currentPlayer: 'X',
+                gameMode: 'twoPlayers',
+                gameActive: true,
+                scores: { X: 0, O: 0 },
+                winningConditions: [
+                    [0, 1, 2], [3, 4, 5], [6, 7, 8],
+                    [0, 3, 6], [1, 4, 7], [2, 5, 8],
+                    [0, 4, 8], [2, 4, 6]
+                ]
+            };
+
+            // Initialisation du jeu
+            function initializeGame() {
+                // Événements des cellules
+                $('.cell').on('click', function() {
+                    if (!gameState.gameActive) return;
+                    
+                    const index = $(this).data('index');
+                    if (gameState.board[index] === '') {
+                        makeMove(index);
+                    }
+                });
+
+                // Événements des boutons
+                $('#twoPlayers').on('click', function() {
+                    setGameMode('twoPlayers');
+                });
+
+                $('#vsAI').on('click', function() {
+                    setGameMode('vsAI');
+                });
+
+                $('#restart').on('click', restartGame);
+
+                updateStatus();
+                updateScores();
+            }
+
+            // Changer le mode de jeu
+            function setGameMode(mode) {
+                gameState.gameMode = mode;
+                
+                $('#twoPlayers').removeClass('btn-primary btn-outline-secondary')
+                    .addClass(mode === 'twoPlayers' ? 'btn-primary' : 'btn-outline-secondary');
+                
+                $('#vsAI').removeClass('btn-primary btn-outline-secondary')
+                    .addClass(mode === 'vsAI' ? 'btn-primary' : 'btn-outline-secondary');
+                
+                restartGame();
+            }
+
+            // Faire un mouvement
+            function makeMove(index) {
+                gameState.board[index] = gameState.currentPlayer;
+                updateBoard();
+                
+                if (checkWinner()) {
+                    handleGameEnd(false);
+                    return;
+                }
+                
+                if (isBoardFull()) {
+                    handleGameEnd(true);
+                    return;
+                }
+                
+                gameState.currentPlayer = gameState.currentPlayer === 'X' ? 'O' : 'X';
+                updateStatus();
+                updatePlayerCards();
+                
+                if (gameState.gameMode === 'vsAI' && gameState.currentPlayer === 'O' && gameState.gameActive) {
+                    setTimeout(makeAIMove, 500);
+                }
+            }
+
+            // Mouvement de l'IA
+            function makeAIMove() {
+                let move = findWinningMove('O') || findWinningMove('X') || findBestMove();
+                makeMove(move);
+            }
+
+            // Trouver un mouvement gagnant
+            function findWinningMove(player) {
+                for (let condition of gameState.winningConditions) {
+                    const [a, b, c] = condition;
+                    const board = gameState.board;
+                    
+                    if ((board[a] === player && board[b] === player && board[c] === '') ||
+                        (board[a] === player && board[c] === player && board[b] === '') ||
+                        (board[b] === player && board[c] === player && board[a] === '')) {
+                        return board[a] === '' ? a : board[b] === '' ? b : c;
+                    }
+                }
+                return null;
+            }
+
+            // Trouver le meilleur mouvement
+            function findBestMove() {
+                if (gameState.board[4] === '') return 4;
+                
+                const corners = [0, 2, 6, 8];
+                for (let corner of corners) {
+                    if (gameState.board[corner] === '') return corner;
+                }
+                
+                for (let i = 0; i < gameState.board.length; i++) {
+                    if (gameState.board[i] === '') return i;
+                }
+            }
+
+            // Vérifier s'il y a un gagnant
+            function checkWinner() {
+                for (let condition of gameState.winningConditions) {
+                    const [a, b, c] = condition;
+                    if (gameState.board[a] !== '' && 
+                        gameState.board[a] === gameState.board[b] && 
+                        gameState.board[a] === gameState.board[c]) {
+                        
+                        // Animation des cellules gagnantes
+                        condition.forEach(index => {
+                            $(`.cell[data-index="${index}"]`)
+                                .addClass('bg-success text-white')
+                                .animate({ fontSize: '3rem' }, 300)
+                                .animate({ fontSize: '2.5rem' }, 300);
+                        });
+                        
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            // Vérifier si le plateau est plein
+            function isBoardFull() {
+                return gameState.board.every(cell => cell !== '');
+            }
+
+            // Gérer la fin du jeu
+            function handleGameEnd(isDraw) {
+                gameState.gameActive = false;
+                
+                if (isDraw) {
+                    $('#status').text('Match nul!');
+                    $('#subStatus').text('Aucun gagnant');
+                    
+                    // Animation match nul
+                    $('.cell').addClass('bg-warning').effect('pulsate', { times: 2 }, 1000);
+                } else {
+                    const winner = gameState.currentPlayer;
+                    $('#status').text(`Le joueur ${winner} a gagné!`);
+                    $('#subStatus').text('Félicitations!');
+                    
+                    gameState.scores[winner]++;
+                    updateScores();
+                    
+                    // Animation victoire
+                    $(`#player${winner}Card`).addClass('bg-success text-white')
+                        .animate({ scale: 1.1 }, 300)
+                        .animate({ scale: 1 }, 300);
+                }
+            }
+
+            // Mettre à jour l'affichage du plateau
+            function updateBoard() {
+                gameState.board.forEach((value, index) => {
+                    const cell = $(`.cell[data-index="${index}"]`);
+                    cell.text(value);
+                    
+                    if (value === 'X') {
+                        cell.removeClass('text-primary').addClass('text-danger');
+                    } else if (value === 'O') {
+                        cell.removeClass('text-danger').addClass('text-primary');
+                    }
+                    
+                    // Animation d'apparition
+                    if (value !== '') {
+                        cell.hide().fadeIn(300);
+                    }
+                });
+            }
+
+            // Mettre à jour le statut
+            function updateStatus() {
+                if (gameState.gameMode === 'vsAI' && gameState.currentPlayer === 'O') {
+                    $('#status').text("Tour de l'IA");
+                    $('#subStatus').text("L'IA réfléchit...");
+                } else {
+                    $('#status').text(`Tour du joueur ${gameState.currentPlayer}`);
+                    $('#subStatus').text(gameState.gameMode === 'vsAI' && gameState.currentPlayer === 'X' ? 
+                        "À vous de jouer!" : "Cliquez sur une case");
+                }
+            }
+
+            // Mettre à jour les scores
+            function updateScores() {
+                $('#scoreX').text(gameState.scores.X);
+                $('#scoreO').text(gameState.scores.O);
+            }
+
+            // Mettre à jour l'affichage des joueurs
+            function updatePlayerCards() {
+                if (gameState.currentPlayer === 'X') {
+                    $('#playerXCard').addClass('border-warning');
+                    $('#playerOCard').removeClass('border-warning');
+                } else {
+                    $('#playerOCard').addClass('border-warning');
+                    $('#playerXCard').removeClass('border-warning');
+                }
+            }
+
+            // Redémarrer le jeu
+            function restartGame() {
+                gameState.board = ['', '', '', '', '', '', '', '', ''];
+                gameState.currentPlayer = 'X';
+                gameState.gameActive = true;
+                
+                // Réinitialiser l'affichage
+                $('.cell').text('')
+                    .removeClass('bg-success bg-warning text-white text-danger text-primary')
+                    .css('font-size', '2.5rem');
+                
+                updateBoard();
+                updateStatus();
+                updatePlayerCards();
+            }
+
+            // Démarrer le jeu
+            initializeGame();
+        });
+    </script>
+</body>
+</html>
