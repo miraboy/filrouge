@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercice 12 - Insertion autour d'une image</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="insert.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        
+        .content {
+            margin: 20px 0;
+        }
+        
+        .image-container {
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .inserted-text {
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #eaf2f8;
+            border-left: 4px solid #3498db;
+            border-radius: 4px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <h1>Exercice 12 - Insertion autour d'une image</h1>
+    
+    <div class="content">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, nisl eget ultricies ultricies.</p>
+        
+        <div class="image-container">
+            <!-- Le texte sera inséré avant et après cette image -->
+            <img src="https://picsum.photos/600/300" alt="Image aléatoire">
+        </div>
+        
+        <p>Phasellus auctor, nunc eget ultricies ultricies, nunc nisl aliquam nunc, eget aliquam nisl nunc eget nisl.</p>
+        
+        <div class="image-container">
+            <img src="https://picsum.photos/600/300?grayscale" alt="Deuxième image">
+        </div>
+    </div>
+</body>
+</html>
+// Fonction pour insérer du texte avant et après la première image
+function insertTextAroundImage() {
+    // Sélectionner la première image de la page
+    const $firstImage = $("img:first");
+    
+    // Insérer le texte avant l'image
+    $firstImage.before('<div class="inserted-text">Wow, I precede the image!</div>');
+    
+    // Insérer le texte après l'image
+    $firstImage.after('<div class="inserted-text">Hey, I come in last</div>');
+}
+
+// Exécuter la fonction lorsque le document est prêt
+$(document).ready(function() {
+    insertTextAroundImage();
+});
