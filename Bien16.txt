@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercice 16 - Fonction ES6 avec paramètre couleur</title>
+    <script src="main.js" defer></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        
+        .platypus {
+            padding: 20px;
+            margin: 15px 0;
+            border: 2px solid #3498db;
+            border-radius: 8px;
+            background-color: #eaf2f8;
+            transition: background-color 0.3s ease;
+        }
+        
+        .other {
+            padding: 15px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        
+        .color-input {
+            margin: 20px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 100px;
+        }
+        
+        button {
+            padding: 10px 15px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Exercice 16 - Fonction ES6 avec paramètre couleur</h1>
+    
+    <div>
+        <label for="colorInput">Entrez une couleur hexadécimale:</label>
+        <input type="text" id="colorInput" class="color-input" value="#3498db" placeholder="#RRGGBB">
+        <button onclick="applyColor()">Appliquer la couleur</button>
+        
+        <div class="other">Élément sans classe platypus</div>
+        
+        <div class="platypus">Élément avec classe platypus</div>
+        
+        <div class="other">Autre élément sans classe platypus</div>
+    </div>
+</body>
+</html>
+
+// Fonction fléchée ES6 avec paramètre couleur hexadécimale
+const setPlatypusColor = (hexColor = 'pink') => {
+    // Sélectionner le premier élément avec la classe "platypus"
+    const platypusElement = document.querySelector('.platypus');
+    
+    // Vérifier si l'élément existe
+    if (platypusElement) {
+        // Valider le format hexadécimal
+        const hexRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
+        
+        if (hexRegex.test(hexColor)) {
+            // Appliquer la couleur si le format est valide
+            platypusElement.style.backgroundColor = hexColor;
+        } else {
+            // Appliquer la couleur par défaut (pink) si le format est invalide
+            platypusElement.style.backgroundColor = 'pink';
+            console.warn('Couleur hexadécimale invalide, utilisation du rose par défaut');
+        }
+    }
+};
+
+// Fonction pour appliquer la couleur à partir de l'input
+function applyColor() {
+    const colorInput = document.getElementById('colorInput');
+    const hexColor = colorInput.value.trim();
+    setPlatypusColor(hexColor);
+}
+
+// Exécuter la fonction avec la valeur par défaut au chargement
+document.addEventListener('DOMContentLoaded', () => {
+    setPlatypusColor(); // Utilise la valeur par défaut (pink)
+});
